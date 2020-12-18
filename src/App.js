@@ -1,6 +1,7 @@
 import Input from './Input'
 import Message from './Message'
 import Chart from './Chart'
+import Map from './Map'
 
 import fetchData from './fetchData'
 import debounce from './debounce'
@@ -102,6 +103,11 @@ class App {
             this.container.appendChild(messageElement.render())
             return this.container
         }
+
+        const lat = this.data && this.data.city &&  this.data.city.coord && this.data.city.coord.lat
+        const lng = this.data && this.data.city &&  this.data.city.coord && this.data.city.coord.lon
+        const mapElement = new Map(lng, lat)
+        this.container.appendChild(mapElement.render())
 
         const transformedData = this.transformData(this.data)
         const chartElement = new Chart(transformedData)
