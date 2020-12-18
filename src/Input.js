@@ -10,6 +10,8 @@ class Input {
         const input = document.createElement('input')
 
         input.style.width = '100%'
+        input.style.height = '40px'
+        input.style.paddingLeft = '10px'
         input.style.marginBottom = '16px'
         input.style.borderRadius = '4px'
         input.style.border = '1px solid gray'
