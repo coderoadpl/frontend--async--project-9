@@ -66,8 +66,9 @@ class App {
             const dt = dataItem && dataItem.dt
             const timestamp = dt && dt * 1000
             const temp = dataItem && dataItem.main && dataItem.main.temp
+            const feelsLike = dataItem && dataItem.main && dataItem.main.feels_like
 
-            return { timestamp, temp }
+            return { timestamp, temp, feelsLike }
         })
         return listMapped
     }
@@ -111,7 +112,5 @@ class App {
     }
 
 }
-
-window.App = App
 
 export default App
