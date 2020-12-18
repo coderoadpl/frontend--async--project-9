@@ -1,9 +1,9 @@
 import Input from './Input'
-import Button from './Button'
 import Message from './Message'
 import Chart from './Chart'
 
 import fetchData from './fetchData'
+import debounce from './debounce'
 
 const APPID = 'a798d078efa04620523b043cc93248e8'
 
@@ -17,6 +17,8 @@ class App {
         this.hasError = null
 
         this.data = null
+
+        this.fetchWeatherDebounced = debounce(1000)(this.fetchWeather)
 
         this.init()
     }
@@ -72,11 +74,8 @@ class App {
 
     onInput(event) {
         this.query = event.target.value
-        this.render()
-    }
-
-    onClick() {
-        this.fetchWeather()
+        this.isLoading = true
+        this.fetchWeatherDebounced()
         this.render()
     }
 
@@ -88,10 +87,8 @@ class App {
         this.container.innerHTML = ''
 
         const input = new Input(this.query, (event) => this.onInput(event))
-        const button = new Button('Fetch weather', () => this.onClick())
 
         this.container.appendChild(input.render())
-        this.container.appendChild(button.render())
 
         if (this.hasError) {
             const messageElement = new Message('Error ocurred!')
@@ -114,5 +111,7 @@ class App {
     }
 
 }
+
+window.App = App
 
 export default App
