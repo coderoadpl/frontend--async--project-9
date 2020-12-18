@@ -104,9 +104,14 @@ class App {
             return this.container
         }
 
-        const lat = this.data && this.data.city &&  this.data.city.coord && this.data.city.coord.lat
-        const lng = this.data && this.data.city &&  this.data.city.coord && this.data.city.coord.lon
-        const mapElement = new Map(lng, lat)
+        if (!this.data) {
+            return this.container
+        }
+
+        const lat = this.data && this.data.city && this.data.city.coord && this.data.city.coord.lat
+        const lng = this.data && this.data.city && this.data.city.coord && this.data.city.coord.lon
+        const name = this.data && this.data.city && this.data.city.name
+        const mapElement = new Map(lng, lat, name)
         this.container.appendChild(mapElement.render())
 
         const transformedData = this.transformData(this.data)
